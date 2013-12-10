@@ -1,0 +1,41 @@
+
+
+
+
+Dim VendorID As String = "1234"
+Dim SKU As String = "123456789"
+Dim query As String = "UPDATE SKU SET VENDORID=@VENDORID WHERE SKU=@SKU"
+
+Dim comm As New SqlClient.SqlCommand
+
+With comm
+    .CommandType = CommandType.Text
+    .CommandText = query
+    .Connection = conn
+    .Parameters.AddWithValue("@VENDORID", VendorID)
+    .Parameters.AddWithValue("@SKU", SKU)
+End With
+
+comm.CommandType = CommandType.Text
+comm.CommandText = query
+comm.Connection = conn
+comm.Parameters.AddWithValue("@VENDORID", VendorID)
+comm.Parameters.AddWithValue("@SKU", SKU)
+
+
+
+
+Public Overloads Function selectQuery(ByVal query As String, ByVal ParamArray sqlParams() As Dictionary(Of String, String)) _
+As List(Of Dictionary(Of String, String))
+    Dim comm as new sqlclient.sqlcommand
+    comm.Commandtype = commandtype.text
+    comm.commandtext = query
+    comm.connection = conn
+
+    For i As Integer = LBound(sqlParams) to UBound(sqlParams)
+        ...foreach key,value
+        comm.Parameters.AddWithValue(key, value)
+    Next
+
+    '' now do select query
+End Function
